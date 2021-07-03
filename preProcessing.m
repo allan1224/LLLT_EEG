@@ -21,7 +21,9 @@ for currentSub = 1:length(Subjects)
     %     title('Ch',i)
     %     hold on;  
     % end
-    %%
+    
+    %% Not too focused on preprocessing bc data is supposedly already
+    %  pre-processed using EEGLab
 
     % Remove mean
     signal = signal - detrend(signal);
@@ -33,7 +35,6 @@ for currentSub = 1:length(Subjects)
     % *Verify using PSD plot*
     BPF = getBPFilter;
     signal = BPF(signal);
-
 
     %% Extract time periods
     
@@ -47,5 +48,4 @@ for currentSub = 1:length(Subjects)
     eeg(currentSub).DURING = signal(:,indexLaserON:indexLaserOFF-1);
     eeg(currentSub).POST = signal(:,indexLaserOFF:length(signal));
     
-   
 end
