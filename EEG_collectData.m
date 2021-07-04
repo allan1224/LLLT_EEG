@@ -3,7 +3,7 @@ close all
 
 
 %% Define your working folder
-myFolder = '/Users/allan/Documents/MATLAB/Neuro'; 
+myFolder = '/Users/allan/Documents/MATLAB/LLLT_EEG'; 
 if ~isdir(myFolder)
   errorMessage = sprintf('Error: The following folder does not exist:\n%s', myFolder);
   uiwait(warndlg(errorMessage));
