@@ -22,8 +22,7 @@ for currentSub = 1:length(Subjects)
     %     hold on;  
     % end
     
-    %% Not too focused on preprocessing bc data is supposedly already
-    %  pre-processed using EEGLab
+    %% Not too focused on preprocessing bc data is supposedly already pre-processed
 
     % Remove mean
     signal = signal - detrend(signal);
