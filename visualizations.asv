@@ -4,7 +4,8 @@ close all;
 
 %% PSD - Select specific channels, subject
 
-chan = 34;
+for chan = 1
+chan = 58;
 sub = 2;
 figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
 h = spectrum.welch; % creates the Welch spectrum estimator

@@ -46,8 +46,8 @@ for sub = 1:numSubjects_tls
     end
 end
 
-%% Normalize for plotting PSD
-
+%% without dB
+ 
 nodB_nor_pxx_tls_first = (pxx_tls_first./pxx_tls_base)-1;
 nodB_nor_pxx_pbo_first = (pxx_pbo_first./pxx_pbo_base)-1;
  
@@ -57,11 +57,11 @@ nodB_nor_pxx_pbo_second = (pxx_pbo_second./pxx_pbo_base)-1;
 nodB_nor_pxx_tls_rec = (pxx_tls_rec./pxx_tls_base)-1;
 nodB_nor_pxx_pbo_rec = (pxx_pbo_rec./pxx_pbo_base)-1;
  
-% Plot PSD changes in DB
+%%%%%%%%%%% Figure normalized PSD changes in DB
  
-channel = 54;
+i = 54;
 figure('color','w')
-plot(f1,mean(nodB_nor_pxx_pbo_second(channel,:,:),3),'ko--','linewidth',1,'markersize',4)
+plot(f1,mean(nodB_nor_pxx_pbo_second(i,:,:),3),'ko--','linewidth',1,'markersize',4)
 xlim([1 70])
 ylim([-0.6 0.4])
 hold on
@@ -73,8 +73,7 @@ yticks([-0.6 -0.4 -0.2 0 0.2 0.4])
 % title(chan_names{i})
 set(gca,'xscale','log','fontsize',15,'linewidth',1,'Xcolor','k','Ycolor','k');
 
-%% Average and normalize subband power for each channel
-% Use this data for further analysis
+%4*fs;
 
 for j =1:2
     for i = 1:64
