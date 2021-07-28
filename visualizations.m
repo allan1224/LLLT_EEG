@@ -8,10 +8,10 @@ channel = 34;
 figure;
 plot(f1,10*log10(mean(pxx_tls_second(channel,:,:),3)), 'color','r')
 hold on;
-plot(f1,10*log10(mean(pxx_pbo_second(channel,:,:),3)), 'color','b')
+plot(f1,10*log10(mean(pxx_tls_base(channel,:,:),3)), 'color','b')
 xlabel('Frequency (Hz)')
 ylabel('PSD (dB/Hz)')
-xlim([8 15])
+xlim([1 70])
 title(labels{channel})
 
 %% Change in PSD at each frequency component (Allan way)
@@ -98,6 +98,18 @@ plot((1:length(Alpha))./fs,Alpha);
 title('ALPHA');
 sgtitle("TLS")
 
-%%
+%% Spectogram
+% Mean of subjects accross a given channel
+
+% Second
+channel = 34;
+signal = mean(tls_base(channel,:,:),3);
+spectrogram(signal,[],[],f1(10:200),fs,'yaxis')
+
+figure;
+% Second
+channel = 34;
+signal = mean(pbo_base(channel,:,:),3);
+spectrogram(signal,[],[],f1(10:200),fs,'yaxis')
 
 
