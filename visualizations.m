@@ -2,25 +2,102 @@ close all;
 
 % Visualizations
 
-%% PSD - Select specific channels, subject
-
-chan = 34;
-sub = 2;
-figure('units','normalized','Position',[0.2,0.65,0.3,0.3])
-h = spectrum.welch; % creates the Welch spectrum estimator
-% 2 sec segment length -> 1024 samples
-% more frequency resolution at higher sample rate 
-h.SegmentLength = 2048;
-% Stim 
-signal=psd(h,tls_second(chan,:,sub),'Fs',fs); % calculates and plot the one sided PSD
-plot(signal); % Plot the one-sided PSD. 
-temp = get(gca);
-temp.Children(1).Color = 'r';
+%% PSD 
+% Mean of subjects across a given channel 
+channel = 34;
+figure;
+plot(f1,10*log10(mean(pxx_tls_second(channel,:,:),3)), 'color','r')
 hold on;
-% Placebo
-signal=psd(h,pbo_second(chan,:,sub),'Fs',fs); % calculates and plot the one sided PSD
-plot(signal); % Plot the one-sided PSD. 
-temp = get(gca);
-temp.Children(1).Color = 'b';
+plot(f1,10*log10(mean(pxx_pbo_second(channel,:,:),3)), 'color','b')
+xlabel('Frequency (Hz)')
+ylabel('PSD (dB/Hz)')
+xlim([8 15])
+title(labels{channel})
+
+%% Change in PSD at each frequency component (Allan way)
+% Mean of subjects across a given channel 
+channel = 34;
+figure;
+plot(f1,(mean(nodB_nor_pxx_pbo_second(channel,:,:),3)), 'color','b')
+hold on;
+plot(f1,(mean(nodB_nor_pxx_tls_second(channel,:,:),3)), 'color','r')
+xlabel('Frequency (Hz)')
+ylabel('% change')
+xlim([8 15])
+title(labels{channel})
+
+%% Change in PSD at each frequency component (Xinlong way)
+% Mean of subjects across a given channel 
+
+channel = 34;
+figure('color','w')
+plot(f1,mean(nodB_nor_pxx_pbo_second(channel,:,:),3),'ko--','linewidth',1,'markersize',4)
+xlim([1 70])
+ylim([-0.6 0.4])
+hold on
+xlabel('Frequency (Hz)')
+ylabel('change of power (%)')
+plot(f1,mean(nodB_nor_pxx_tls_second(channel,:,:),3),'r*-','linewidth',1,'markersize',4)
+xticks([1 4 8 13 30 70])
+yticks([-0.6 -0.4 -0.2 0 0.2 0.4])
+title(labels{channel})
+set(gca,'xscale','log','fontsize',15,'linewidth',1,'Xcolor','k','Ycolor','k');
+
+%% PSD of sub-bands
+% Mean of subjects across a given channel 
+
+% Alpha
+channel = 34;
+figure;
+plot(f2,10*log10(mean(pxx_aSig_tls_second(channel,:,:),3)), 'color','r')
+hold on;
+plot(f2,10*log10(mean(pxx_aSig_tls_base(channel,:,:),3)), 'color','b')
+xlabel('Frequency (Hz)')
+ylabel('PSD (dB/Hz)')
+xlim([8 15])
+title("Alpha band",labels{channel})
+
+%% Change in PSD of sub-bands
+% Mean of subjects across a given channel 
+
+% Alpha
+channel = 34;
+figure;
+plot(f2,(mean(change_pxx_aSig_tls_second(channel,:,:),3)), 'color','r')
+hold on;
+plot(f2,(mean(change_pxx_aSig_pbo_second(channel,:,:),3)), 'color','b')
+xlabel('Frequency (Hz)')
+ylabel('% Change')
+xlim([8 15])
+title('Alpha band',labels{channel})
+
+
+%% Reconstructed sub-band signals
+
+channel = 34;
+% PBO
+figure; 
+Alpha = mean(aSig_pbo_second(channel,:,:),3);
+Beta = mean(bSig_pbo_second(channel,:,:),3);
+subplot(2,1,1); 
+plot((1:length(Beta))./fs, Beta); 
+title('BETA');
+subplot(2,1,2); 
+plot((1:length(Alpha))./fs,Alpha);
+title('ALPHA');
+sgtitle("PBO")
+% TLS
+figure; 
+Alpha = mean(aSig_tls_second(channel,:,:),3);
+Beta = mean(bSig_tls_second(channel,:,:),3);
+subplot(2,1,1); 
+plot((1:length(Beta))./fs, Beta); 
+title('BETA');
+subplot(2,1,2); 
+plot((1:length(Alpha))./fs,Alpha);
+title('ALPHA');
+sgtitle("TLS")
+
+%%
 
 
