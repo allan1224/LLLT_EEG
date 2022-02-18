@@ -13,15 +13,15 @@ xlabel('Frequency (Hz)')
 ylabel('PSD (dB/Hz)')
 xlim([1 70])
 title("PSD", labels{channel})
-legend('PBO 4-8','baseline')
+legend('rec','baseline')
 
 %% Change in PSD at each frequency component (Allan way)
 % Mean of subjects across a given channel 
 channel = 1;
 figure;
-plot(f1,(mean(nodB_nor_pxx_tls_second(channel,:,:),3)), 'color','b')
+plot(f1,(mean(nodB_nor_pxx_tls_rec(channel,:,:),3)), 'color','b')
 hold on;
-plot(f1,(mean(nodB_nor_pxx_pbo_second(channel,:,:),3)), 'color','r')
+plot(f1,(mean(nodB_nor_pxx_pbo_rec(channel,:,:),3)), 'color','r')
 xlabel('Frequency (Hz)')
 ylabel('% change')
 xlim([1 40])
