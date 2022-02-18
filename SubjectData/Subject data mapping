@@ -1,0 +1,48 @@
+Subject data mapping
+
+PBO
+1. F3
+2. F6
+3. F7
+4. F8
+5. F10
+6. F12
+7. F14
+8. F15
+9. F17 - Could not load sub 9_ICA.set
+10. F19 - Could not load sub 10_ICA.set
+11. M3 - Could not load sub 11_ICA.set
+12. M7
+
+w/o bad files:
+PBO
+1. F3
+2. F6
+3. F7
+4. F8
+5. F10
+6. F12
+7. F14
+8. F15
+9. M7
+
+
+STIM
+1. F5 (right)
+2. F7 (right)
+3. F11 (right)
+4. F13 (right)
+5. F18 (right) - Could not load sub 5_ICA.set
+6. F20 (right) - Could not load sub 6_ICA.set
+7. M7 (right)
+8. M11 (right)
+9. M14 (right) - Could not load sub 9_ICA.set
+
+w/o bad files:
+STIM
+1. F5 (right)
+2. F7 (right)
+3. F11 (right)
+4. F13 (right)
+5. M7 (right)
+6. M11 (right)

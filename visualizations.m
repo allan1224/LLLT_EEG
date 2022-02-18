@@ -12,19 +12,21 @@ plot(f1,10*log10(mean(pxx_tls_base(channel,:,:),3)), 'color','b')
 xlabel('Frequency (Hz)')
 ylabel('PSD (dB/Hz)')
 xlim([1 70])
-title(labels{channel})
+title("PSD", labels{channel})
+legend('PBO 4-8','baseline')
 
 %% Change in PSD at each frequency component (Allan way)
 % Mean of subjects across a given channel 
-channel = 34;
+channel = 1;
 figure;
-plot(f1,(mean(nodB_nor_pxx_pbo_second(channel,:,:),3)), 'color','b')
+plot(f1,(mean(nodB_nor_pxx_tls_second(channel,:,:),3)), 'color','b')
 hold on;
-plot(f1,(mean(nodB_nor_pxx_tls_second(channel,:,:),3)), 'color','r')
+plot(f1,(mean(nodB_nor_pxx_pbo_second(channel,:,:),3)), 'color','r')
 xlabel('Frequency (Hz)')
 ylabel('% change')
-xlim([8 15])
-title(labels{channel})
+xlim([1 40])
+title("% Change in PSD", labels{channel})
+legend('TLS min 4-8','PBO min 4-8')
 
 %% Change in PSD at each frequency component (Xinlong way)
 % Mean of subjects across a given channel 
@@ -98,18 +100,37 @@ plot((1:length(Alpha))./fs,Alpha);
 title('ALPHA');
 sgtitle("TLS")
 
-%% Spectogram
-% Mean of subjects accross a given channel
+%% Baseline Comparisons
 
-% Second
-channel = 34;
-signal = mean(tls_base(channel,:,:),3);
-spectrogram(signal,[],[],f1(10:200),fs,'yaxis')
+for chan = 1:numChannels
+    
+    mean_pbo_sub = mean(pbo_base(chan,:,:),3);
+    mean_pbo(chan) = mean(mean_pbo_sub);
+
+    mean_tls_sub = mean(tls_base(chan,:,:),3);
+    mean_tls(chan) = mean(mean_tls_sub);
+
+end
+
+for chan = 1:64
+    x(chan) = [chan];
+    vals1(chan) = [mean_pbo(chan)]; 
+    vals2(chan) = [mean_tls(chan)];
+    
+end
+
+vals = [vals1 ; vals2];
+
+h = bar(x,abs(vals))
+set(h, {'DisplayName'}, {'PBO','TLS'}')
+legend() 
+title("Mean baseline of subjects per channel")
 
 figure;
-% Second
-channel = 34;
-signal = mean(pbo_base(channel,:,:),3);
-spectrogram(signal,[],[],f1(10:200),fs,'yaxis')
 
+diff = [(vals2./vals1)-1];
+h = bar(x,abs(diff))
+set(h, {'DisplayName'}, {'{% Diff}'})
+legend() 
+title("% Difference of mean baseline of subjects per channel")
 
