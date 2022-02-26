@@ -2,100 +2,75 @@
 %% Average and normalize subband power per channel, for each subject
 % Use this data for further analysis
 
-% How were these frequency ranges selected? Do not necessarily correspond
-% to standard EEG subbands
-
-
-% Don't think that this is correct. Power within a range of frequencies is
-% found by taking the area under the curve of PSD plots. 
-
 % First
 for sub = 1:numSubjects_tls
     for chan = 1:numChannels
-        
         nor_fb1_tls_first(chan,sub) = squeeze(mean(pxx_tls_first(chan,8:15,sub)))./squeeze(mean(pxx_tls_base(chan,8:15,sub)));
         nor_fb2_tls_first(chan,sub) = squeeze(mean(pxx_tls_first(chan,18:29,sub)))./squeeze(mean(pxx_tls_base(chan,18:29,sub)));
         nor_fb3_tls_first(chan,sub) = squeeze(mean(pxx_tls_first(chan,37:53,sub)))./squeeze(mean(pxx_tls_base(chan,37:53,sub)));
         nor_fb4_tls_first(chan,sub) = squeeze(mean(pxx_tls_first(chan,47:115,sub)))./squeeze(mean(pxx_tls_base(chan,47:115,sub)));
         nor_fb5_tls_first(chan,sub) = squeeze(mean(pxx_tls_first(chan,122:281,sub)))./squeeze(mean(pxx_tls_base(chan,122:281,sub)));
-
     end
 end
-
 for j = 1:numSubjects_pbo
     for i = 1:numChannels
-        
         nor_fb1_pbo_first(i,j) = squeeze(mean(pxx_pbo_first(i,8:15,j)))./squeeze(mean(pxx_pbo_base(i,8:15,j)));
         nor_fb2_pbo_first(i,j) = squeeze(mean(pxx_pbo_first(i,18:29,j)))./squeeze(mean(pxx_pbo_base(i,18:29,j)));
         nor_fb3_pbo_first(i,j) = squeeze(mean(pxx_pbo_first(i,37:53,j)))./squeeze(mean(pxx_pbo_base(i,37:53,j)));
         nor_fb4_pbo_first(i,j) = squeeze(mean(pxx_pbo_first(i,47:115,j)))./squeeze(mean(pxx_pbo_base(i,47:115,j)));
         nor_fb5_pbo_first(i,j) = squeeze(mean(pxx_pbo_first(i,122:281,j)))./squeeze(mean(pxx_pbo_base(i,122:281,j)));
-        
+    end 
+end
+
+% Second
+for sub = 1:numSubjects_tls
+    for chan = 1:numChannels
+        nor_fb1_tls_second(chan,sub) = squeeze(mean(pxx_tls_second(chan,8:15,sub)))./squeeze(mean(pxx_tls_base(chan,8:15,sub)));
+        nor_fb2_tls_second(chan,sub) = squeeze(mean(pxx_tls_second(chan,18:29,sub)))./squeeze(mean(pxx_tls_base(chan,18:29,sub)));
+        nor_fb3_tls_second(chan,sub) = squeeze(mean(pxx_tls_second(chan,37:53,sub)))./squeeze(mean(pxx_tls_base(chan,37:53,sub)));
+        nor_fb4_tls_second(chan,sub) = squeeze(mean(pxx_tls_second(chan,47:115,sub)))./squeeze(mean(pxx_tls_base(chan,47:115,sub)));
+        nor_fb5_tls_second(chan,sub) = squeeze(mean(pxx_tls_second(chan,122:281,sub)))./squeeze(mean(pxx_tls_base(chan,122:281,sub)));
     end
-    
+end
+for j = 1:numSubjects_pbo
+    for i = 1:numChannels
+        nor_fb1_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,8:15,j)))./squeeze(mean(pxx_pbo_base(i,8:15,j)));
+        nor_fb2_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,18:29,j)))./squeeze(mean(pxx_pbo_base(i,18:29,j)));
+        nor_fb3_pbo_secondt(i,j) = squeeze(mean(pxx_pbo_second(i,37:53,j)))./squeeze(mean(pxx_pbo_base(i,37:53,j)));
+        nor_fb4_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,47:115,j)))./squeeze(mean(pxx_pbo_base(i,47:115,j)));
+        nor_fb5_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,122:281,j)))./squeeze(mean(pxx_pbo_base(i,122:281,j)));
+    end
 end
 
-%%
-
-
-
-
-
-
-
-for j =1:46
-for i = 1:64
-nor_fb1_tls_second(i,j) = squeeze(mean(pxx_tls_second(i,8:15,j)))./squeeze(mean(pxx_tls_base(i,8:15,j)));
-nor_fb1_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,8:15,j)))./squeeze(mean(pxx_pbo_base(i,8:15,j)));
-
-nor_fb2_tls_second(i,j) = squeeze(mean(pxx_tls_second(i,18:29,j)))./squeeze(mean(pxx_tls_base(i,18:29,j)));
-nor_fb2_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,18:29,j)))./squeeze(mean(pxx_pbo_base(i,18:29,j)));
-
-nor_fb3_tls_second(i,j) = squeeze(mean(pxx_tls_second(i,37:53,j)))./squeeze(mean(pxx_tls_base(i,37:53,j)));
-nor_fb3_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,37:53,j)))./squeeze(mean(pxx_pbo_base(i,37:53,j)));
-
-nor_fb4_tls_second(i,j) = squeeze(mean(pxx_tls_second(i,47:115,j)))./squeeze(mean(pxx_tls_base(i,47:115,j)));
-nor_fb4_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,47:115,j)))./squeeze(mean(pxx_pbo_base(i,47:115,j)));
-
-nor_fb5_tls_second(i,j) = squeeze(mean(pxx_tls_second(i,122:281,j)))./squeeze(mean(pxx_tls_base(i,122:281,j)));
-nor_fb5_pbo_second(i,j) = squeeze(mean(pxx_pbo_second(i,122:281,j)))./squeeze(mean(pxx_pbo_base(i,122:281,j)));
-
-
+% Recovery
+for sub = 1:numSubjects_tls
+    for chan = 1:numChannels
+        nor_fb1_tls_rec(chan,sub) = squeeze(mean(pxx_tls_rec(chan,8:15,sub)))./squeeze(mean(pxx_tls_base(chan,8:15,sub)));
+        nor_fb2_tls_rec(chan,sub) = squeeze(mean(pxx_tls_rec(chan,18:29,sub)))./squeeze(mean(pxx_tls_base(chan,18:29,sub)));
+        nor_fb3_tls_rec(chan,sub) = squeeze(mean(pxx_tls_rec(chan,37:53,sub)))./squeeze(mean(pxx_tls_base(chan,37:53,sub)));
+        nor_fb4_tls_rec(chan,sub) = squeeze(mean(pxx_tls_rec(chan,47:115,sub)))./squeeze(mean(pxx_tls_base(chan,47:115,sub)));
+        nor_fb5_tls_rec(chan,sub) = squeeze(mean(pxx_tls_rec(chan,122:281,sub)))./squeeze(mean(pxx_tls_base(chan,122:281,sub)));
+    end
 end
+for j = 1:numSubjects_pbo
+    for i = 1:numChannels
+        nor_fb1_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,8:15,j)))./squeeze(mean(pxx_pbo_base(i,8:15,j)));
+        nor_fb2_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,18:29,j)))./squeeze(mean(pxx_pbo_base(i,18:29,j)));
+        nor_fb3_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,37:53,j)))./squeeze(mean(pxx_pbo_base(i,37:53,j)));
+        nor_fb4_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,47:115,j)))./squeeze(mean(pxx_pbo_base(i,47:115,j)));
+        nor_fb5_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,122:281,j)))./squeeze(mean(pxx_pbo_base(i,122:281,j)));
+    end
 end
-
-for j =1:46
-for i = 1:64
-nor_fb1_tls_rec(i,j) = squeeze(mean(pxx_tls_rec(i,8:15,j)))./squeeze(mean(pxx_tls_base(i,8:15,j)));
-nor_fb1_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,8:15,j)))./squeeze(mean(pxx_pbo_base(i,8:15,j)));
- 
-nor_fb2_tls_rec(i,j) = squeeze(mean(pxx_tls_rec(i,18:29,j)))./squeeze(mean(pxx_tls_base(i,18:29,j)));
-nor_fb2_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,18:29,j)))./squeeze(mean(pxx_pbo_base(i,18:29,j)));
- 
-nor_fb3_tls_rec(i,j) = squeeze(mean(pxx_tls_rec(i,37:53,j)))./squeeze(mean(pxx_tls_base(i,37:53,j)));
-nor_fb3_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,37:53,j)))./squeeze(mean(pxx_pbo_base(i,37:53,j)));
-  
-nor_fb4_tls_rec(i,j) = squeeze(mean(pxx_tls_rec(i,47:115,j)))./squeeze(mean(pxx_tls_base(i,47:115,j)));
-nor_fb4_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,47:115,j)))./squeeze(mean(pxx_pbo_base(i,47:115,j)));
-  
-nor_fb5_tls_rec(i,j) = squeeze(mean(pxx_tls_rec(i,122:281,j)))./squeeze(mean(pxx_tls_base(i,122:281,j)));
-nor_fb5_pbo_rec(i,j) = squeeze(mean(pxx_pbo_rec(i,122:281,j)))./squeeze(mean(pxx_pbo_base(i,122:281,j)));
- 
- 
-end
-end
- 
-
 
 %% tPBM PBO results
 % [h_fb1 p_fb1] = ttest(nor_fb1_tls_first',nor_fb1_pbo_first','alpha',0.05);
 
 % The statistical analysis is done on the averaged sub-band PSD
 
-
+%% Delta
 mean_fb1_first = mean(nor_fb1_tls_first')-mean(nor_fb1_pbo_first');
 for i = 1:64
-[pval_ther_laser_fb1_first(i), ~, effectsize_ther_laser_fb1_first(i)] = permutationTest(tls_data, pbo_data, 10000,'sidedness','larger');
+[pval_fb1_laser_first(i), ~, effectsize_laser_fb1_first(i)] = permutationTest(nor_fb1_tls_first(i,:)', nor_fb1_pbo_first(i,:)', 10000,'sidedness','larger');
 end
 sorted_p = sort(pval_fb1_laser_first);
 sorted_p = round(sorted_p,2);
@@ -117,6 +92,8 @@ hun_fb1_first(pval_fb1_laser_first>0.05) = 0;
 figure
 plot(linspace(1,64,64),threshold_level,'r-',linspace(1,64,64),sorted_p ,'g*')
 
+
+%%
 % [h_fb1 p_fb1] = ttest(nor_fb1_tls_second',nor_fb1_pbo_second','alpha',0.05);
 mean_fb1_second = mean(nor_fb1_tls_second')-mean(nor_fb1_pbo_second');
 for i = 1:64
@@ -141,6 +118,8 @@ hun_fb1_second(pval_fb1_laser_second>0.05) = 0;
 figure
 plot(linspace(1,64,64),threshold_level,'r-',linspace(1,64,64),sorted_p ,'g*')
 
+
+%%
 % [h_fb1 p_fb1] = ttest(nor_fb1_tls_rec',nor_fb1_pbo_rec','alpha',0.05);
 mean_fb1_rec = mean(nor_fb1_tls_rec')-mean(nor_fb1_pbo_rec');
 for i = 1:64

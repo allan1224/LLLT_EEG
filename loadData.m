@@ -10,14 +10,15 @@ fs = 512;
 numSubjects_tls = 6;
 numSubjects_pbo = 9;
 numChannels = 64; % only channels corresponding to eeg mapping 
-load('chanlocs.mat', 'labels')
+load('chanlocs.mat')
+load('labels.mat')
+
 
 %% Timing
 % 2 min baseline -> (1-120 seconds)
 % 8 min stimulation (121 - 480 seconds) 
     % stim pt 1 (121 - 240 seconds), stim pt 2 (241-480 seconds)
 % 3 min post (481 - 780 seconds)
-
 
 %% TLS
 for sub = 1:numSubjects_tls
