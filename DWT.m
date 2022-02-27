@@ -1,10 +1,13 @@
-function [aSig,tSig] = DWT(signal)
+function [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(signal)
+    %% Determine levels needed
     fs = 512;
-    % wv = 'db4'
-    % l = wmaxlev(length(pbo_first(55,:,2)),wv) = 14
+    L = wmaxlev(fs,'db8'); 
+    LEVELS = L+round(L/4)
+    
+    %% Perform decomp
     waveletFunction = 'db8';
     [C,L] = wavedec(signal,6,waveletFunction);
-
+    
     %% Coefficients
     cD1 = detcoef(C,L,1); % NOISY
     cD2 = detcoef(C,L,2); % NOISY
@@ -44,7 +47,6 @@ function [aSig,tSig] = DWT(signal)
     gCoef = cD3;
     dCoef = cA6;
     tCoef = cD6;
-    
     % Reconstructed signal
     aSig = Alpha;
     bSig = Beta;
@@ -52,6 +54,20 @@ function [aSig,tSig] = DWT(signal)
     dSig = Delta;
     tSig = Theta;
     
+    % Output:
     
-  
+    % Percent energy of coefficients
+    [Ea,Ed] = wenergy(C,L);
+    a_percentE = Ed(5);
+    b_percentE = Ed(4);
+    
+    % Basic statistics
+    a_mean = mean(aCoef);
+    a_var = var(aCoef);
+    a_std = std(aCoef);
+    
+    b_mean = mean(bCoef);
+    b_var = var(bCoef);
+    b_std = std(bCoef);
+    
 end
