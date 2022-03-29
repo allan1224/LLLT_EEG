@@ -2,7 +2,7 @@ function [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(sig
     %% Determine levels needed
     fs = 512;
     L = wmaxlev(fs,'db8'); 
-    LEVELS = L+round(L/4)
+    LEVELS = L+round(L/4);
     
     %% Perform decomp
     waveletFunction = 'db8';

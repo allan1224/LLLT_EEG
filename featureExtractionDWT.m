@@ -3,15 +3,16 @@
     % Extracted subband coefficents for feature extraction
     % Reconstructed subband signals
 
+% **next: perform channel selection based on channels with significant p values**    
 % Channel selection: find channels where mean diff in bandpower is > 0
-[selectedChan] = find(meanDiff_alpha_second>0 & meanDiff_alpha_rec>0);
+[selectedChan] = find(100*meanDiff_alpha_second>10 & 100*meanDiff_alpha_rec>10);
     
     
 %% Placebo
 %% Base - PBO
-for sub = 1:numSubjects_pbo
+for sub = 1:length(newSubs_pbo)
     for chan = 1:length(selectedChan)
-        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(pbo_base(selectedChan(chan),:,sub));
+        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(pbo_base(selectedChan(chan),:,newSubs_pbo(sub)));
         
         a_percentE_pbo_base(chan,sub) = a_percentE;
         a_mean_pbo_base(chan,sub) = a_mean;
@@ -28,9 +29,9 @@ for sub = 1:numSubjects_pbo
 end
 
 %% Second - PBO
-for sub = 1:numSubjects_pbo
+for sub = 1:length(newSubs_pbo)
     for chan = 1:length(selectedChan)
-        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(pbo_second(selectedChan(chan),:,sub));
+        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(pbo_second(selectedChan(chan),:,newSubs_pbo(sub)));
         
         a_percentE_pbo_second(chan,sub) = a_percentE;
         a_mean_pbo_second(chan,sub) = a_mean;
@@ -45,9 +46,9 @@ for sub = 1:numSubjects_pbo
     end
 end
 %% Rec - PBO
-for sub = 1:numSubjects_pbo
+for sub = 1:length(newSubs_pbo)
     for chan = 1:length(selectedChan)
-        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(pbo_rec(selectedChan(chan),:,sub));
+        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(pbo_rec(selectedChan(chan),:,newSubs_pbo(sub)));
 
         a_percentE_pbo_rec(chan,sub) = a_percentE;
         a_mean_pbo_rec(chan,sub) = a_mean;
@@ -64,9 +65,9 @@ end
 
 %% TLS 
 % Base - TLS
-for sub = 1:numSubjects_tls
+for sub = 1:length(newSubs_tls)
     for chan = 1:length(selectedChan)
-        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(tls_base(selectedChan(chan),:,sub));   
+        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(tls_base(selectedChan(chan),:,newSubs_tls(sub)));   
         
         a_percentE_tls_base(chan,sub) = a_percentE;
         a_mean_tls_base(chan,sub) = a_mean;
@@ -82,9 +83,9 @@ for sub = 1:numSubjects_tls
 end
 
 %% Second - TLS
-for sub = 1:numSubjects_tls
+for sub = 1:length(newSubs_tls)
     for chan = 1:length(selectedChan)
-        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(tls_second(selectedChan(chan),:,sub));  
+        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(tls_second(selectedChan(chan),:,newSubs_tls(sub)));  
 
         a_percentE_tls_second(chan,sub) = a_percentE;
         a_mean_tls_second(chan,sub) = a_mean;
@@ -100,9 +101,9 @@ for sub = 1:numSubjects_tls
 end
 
 %% Rec - TLS
-for sub = 1:numSubjects_tls
+for sub = 1:length(newSubs_tls)
     for chan = 1:length(selectedChan)
-        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(tls_rec(selectedChan(chan),:,sub));  
+        [a_percentE,a_mean,a_var,a_std,b_mean,b_var,b_std,b_percentE] = DWT(tls_rec(selectedChan(chan),:,newSubs_tls(sub)));  
         
         a_percentE_tls_rec(chan,sub) = a_percentE;
         a_mean_tls_rec(chan,sub) = a_mean;

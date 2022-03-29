@@ -33,10 +33,33 @@ for sub = 1:numSubjects_pbo
     deltaPow_pbo_rec(chan,sub) = bandpower(pxx_pbo_rec(chan,:,sub),f1,[0.5,4],'psd');
     end 
 end
+%% Filter subjects 
+
+alphaPow_tls_base = alphaPow_tls_base(:,newSubs_tls);
+alphaPow_tls_second = alphaPow_tls_second(:,newSubs_tls);
+alphaPow_tls_rec = alphaPow_tls_rec(:,newSubs_tls);
+alphaPow_pbo_base = alphaPow_pbo_base(:,newSubs_pbo);
+alphaPow_pbo_second = alphaPow_pbo_second(:,newSubs_pbo);
+alphaPow_pbo_rec = alphaPow_pbo_rec(:,newSubs_pbo);
+
+betaPow_tls_base = betaPow_tls_base(:,newSubs_tls);
+betaPow_tls_second = betaPow_tls_second(:,newSubs_tls);
+betaPow_tls_rec = betaPow_tls_rec(:,newSubs_tls);
+betaPow_pbo_base = betaPow_pbo_base(:,newSubs_pbo);
+betaPow_pbo_second = betaPow_pbo_second(:,newSubs_pbo);
+betaPow_pbo_rec = betaPow_pbo_rec(:,newSubs_pbo);
+
+deltaPow_tls_base = deltaPow_tls_base(:,newSubs_tls);
+deltaPow_tls_second = deltaPow_tls_second(:,newSubs_tls);
+deltaPow_tls_rec = deltaPow_tls_rec(:,newSubs_tls);
+deltaPow_pbo_base = deltaPow_pbo_base(:,newSubs_pbo);
+deltaPow_pbo_second = deltaPow_pbo_second(:,newSubs_pbo);
+deltaPow_pbo_rec = deltaPow_pbo_rec(:,newSubs_pbo);
 
 %% Ratio of average band power between stimulation/recovery and baseline
 % Xinlong recommends to use this normalization for further statistical
 % analysis
+% Dividing by the magnitude of baseline for normalization, not unitleess
 
 r_alpha_tls_second = alphaPow_tls_second./alphaPow_tls_base;
 r_alpha_tls_rec = alphaPow_tls_rec./alphaPow_tls_base;
@@ -63,8 +86,6 @@ meanDiff_beta_rec = mean(r_beta_tls_rec,2)-mean(r_beta_pbo_rec,2);
 meanDiff_delta_second = mean(r_delta_tls_second,2)-mean(r_delta_pbo_second,2);
 meanDiff_delta_rec = mean(r_delta_tls_rec,2)-mean(r_delta_pbo_rec,2);
 
-
-
 %% Plot the bandpower ratio to baseline
 %% TLS 4-8
 
@@ -73,40 +94,38 @@ chan = 34;
 figure;
 sgtitle("Normalized band power TLS 4-8 min vs Sham, chan: " + labels(chan) );
 subplot(1,3,1)
-stem(1:6,r_alpha_tls_second(chan,:),'color','r');
+stem(1:length(newSubs_tls),r_alpha_tls_second(chan,:),'color','r');
 hold on;
-stem(1:9,r_alpha_pbo_second(chan,:),'color','b');
+stem(1:length(newSubs_pbo),r_alpha_pbo_second(chan,:),'color','b');
 title("alpha band")
 curtick = get(gca, 'XTick');
 set(gca, 'XTick', unique(round(curtick)))
 xlabel("subject")
 ylabel("ratio to baseline ")
 legend('TLS','PBO')
-xlim([1 9])
 
 subplot(1,3,2)
-stem(1:6,r_beta_tls_second(chan,:),'color','r');
+stem(1:length(newSubs_tls),r_beta_tls_second(chan,:),'color','r');
 hold on;
-stem(1:9,r_beta_pbo_second(chan,:),'color','b');
+stem(1:length(newSubs_pbo),r_beta_pbo_second(chan,:),'color','b');
 title("beta band")
 curtick = get(gca, 'XTick');
 set(gca, 'XTick', unique(round(curtick)))
 xlabel("subject")
 ylabel("ratio to basline")
 legend('TLS','PBO')
-xlim([1 9])
 
 subplot(1,3,3)
-stem(1:6,r_delta_tls_second(chan,:),'color','r');
+stem(1:length(newSubs_tls),r_delta_tls_second(chan,:),'color','r');
 hold on;
-stem(1:9,r_delta_pbo_second(chan,:),'color','b');
+stem(1:length(newSubs_pbo),r_delta_pbo_second(chan,:),'color','b');
 title("delta band")
 curtick = get(gca, 'XTick');
 set(gca, 'XTick', unique(round(curtick)))
 xlabel("subject")
 ylabel("ratio to baseline")
 legend('TLS','PBO')
-xlim([1 9])
+
 
 %% Recovery
 
@@ -115,191 +134,81 @@ chan = 34;
 figure;
 sgtitle("Normalized band power TLS Recovery vs Sham, chan: " + labels(chan) );
 subplot(1,3,1)
-stem(1:6,r_alpha_tls_rec(chan,:),'color','r');
+stem(1:length(newSubs_tls),r_alpha_tls_rec(chan,:),'color','r');
 hold on;
-stem(1:9,r_alpha_pbo_rec(chan,:),'color','b');
+stem(1:length(newSubs_pbo),r_alpha_pbo_rec(chan,:),'color','b');
 title("alpha band")
 curtick = get(gca, 'XTick');
 set(gca, 'XTick', unique(round(curtick)))
 xlabel("subject")
 ylabel("ratio to baseline ")
 legend('TLS','PBO')
-xlim([1 9])
 
 subplot(1,3,2)
-stem(1:6,r_beta_tls_rec(chan,:),'color','r');
+stem(1:length(newSubs_tls),r_beta_tls_rec(chan,:),'color','r');
 hold on;
-stem(1:9,r_beta_pbo_rec(chan,:),'color','b');
+stem(1:length(newSubs_pbo),r_beta_pbo_rec(chan,:),'color','b');
 title("beta band")
 curtick = get(gca, 'XTick');
 set(gca, 'XTick', unique(round(curtick)))
 xlabel("subject")
 ylabel("ratio to basline")
 legend('TLS','PBO')
-xlim([1 9])
 
 subplot(1,3,3)
-stem(1:6,r_delta_tls_rec(chan,:),'color','r');
+stem(1:length(newSubs_tls),r_delta_tls_rec(chan,:),'color','r');
 hold on;
-stem(1:9,r_delta_pbo_rec(chan,:),'color','b');
+stem(1:length(newSubs_pbo),r_delta_pbo_rec(chan,:),'color','b');
 title("delta band")
 curtick = get(gca, 'XTick');
 set(gca, 'XTick', unique(round(curtick)))
 xlabel("subject")
 ylabel("ratio to baseline")
 legend('TLS','PBO')
-xlim([1 9])
 
 %% TOPOPLOTS
 
 % Mean difference in band power
+% scaled by 100
 
 % alpha
 figure; 
-sgtitle("Mean difference alpha power between TLS and PBO")
+sgtitle("Delta value alpha power between TLS and PBO")
 subplot(1,2,1)
 topoplot(100*meanDiff_alpha_second,chanlocs(1:64));
 title("TLS min 4-8");
 hcb=colorbar;
-hcb.Title.String = "% Diff";
+hcb.Title.String = "Diff";
 subplot(1,2,2)
 topoplot(100*meanDiff_alpha_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
-hcb.Title.String = "% Diff";
+hcb.Title.String = "Diff";
 
 % beta
 figure; 
-sgtitle("Mean difference beta power between TLS and PBO")
+sgtitle("Delta value beta power between TLS and PBO")
 subplot(1,2,1)
 topoplot(100*meanDiff_beta_second,chanlocs(1:64));
 title("TLS min 4-8");
 hcb=colorbar;
-hcb.Title.String = "% Diff";
+hcb.Title.String = "Diff";
 subplot(1,2,2)
 topoplot(100*meanDiff_beta_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
-hcb.Title.String = "% Diff";
+hcb.Title.String = "Diff";
 
 % delta
 figure; 
-sgtitle("Mean difference delta power between TLS and PBO")
+sgtitle("Delta value delta power between TLS and PBO")
 subplot(1,2,1)
 topoplot(100*meanDiff_delta_second,chanlocs(1:64));
 title("TLS min 4-8");
 hcb=colorbar;
-hcb.Title.String = "% Diff";
+hcb.Title.String = "Diff";
 subplot(1,2,2)
 topoplot(100*meanDiff_delta_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
-hcb.Title.String = "% Diff";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%% TLS
-
-subject = 1;
-
-figure; 
-sgtitle("alpha power ratio to basline, subject: " + subject)
-subplot(1,2,1)
-topoplot(r_alpha_tls_second(:,subject),chanlocs(1:64));
-title("TLS min 4-8");
-hcb=colorbar;
-hcb.Title.String = "ratio to baseline";
-subplot(1,2,2)
-topoplot(r_alpha_tls_rec(:,subject),chanlocs(1:64));
-title("recovery");
-hcb=colorbar;
-hcb.Title.String = "% change";
-
-figure; 
-sgtitle("beta power ratio to baseline, subject: " + subject);
-subplot(1,2,1)
-topoplot(r_beta_tls_second(:,subject),chanlocs(1:64));
-title("TLS min 4-8");
-hcb=colorbar;
-hcb.Title.String = "ratio";
-subplot(1,2,2)
-topoplot(r_beta_tls_rec(:,subject),chanlocs(1:64));
-title("recovery");
-hcb=colorbar;
-hcb.Title.String = "ratio";
-
-figure; 
-sgtitle("delta power ratio to baseline, subject: " + subject);
-subplot(1,2,1)
-topoplot(r_delta_tls_second(:,subject),chanlocs(1:64));
-title("TLS min 4-8");
-hcb=colorbar;
-hcb.Title.String = "ratio";
-subplot(1,2,2)
-topoplot(r_delta_tls_rec(:,subject),chanlocs(1:64));
-title("recovery");
-hcb=colorbar;
-hcb.Title.String = "ratio";
-
-
-%% PBO
-
-subject = 3;
-
-figure; 
-sgtitle("change in average alpha power, subject: " + subject);
-subplot(1,2,1)
-topoplot(ch_alpha_pbo_second(:,subject),chanlocs(1:64));
-title("PBO min 4-8");
-hcb=colorbar;
-hcb.Title.String = "% change";
-subplot(1,2,2)
-topoplot(ch_alpha_pbo_rec(:,subject),chanlocs(1:64));
-title("PBO recovery");
-hcb=colorbar;
-hcb.Title.String = "% change";
-
-figure; 
-sgtitle("change in average beta power, subject: " + subject);
-subplot(1,2,1)
-topoplot(ch_beta_pbo_second(:,subject),chanlocs(1:64));
-title("PBO min 4-8");
-hcb=colorbar;
-hcb.Title.String = "% change";
-subplot(1,2,2)
-topoplot(ch_beta_pbo_rec(:,subject),chanlocs(1:64));
-title("PBO recovery");
-hcb=colorbar;
-hcb.Title.String = "% change";
-
-figure; 
-sgtitle("change in average delta power, subject: " + subject);
-subplot(1,2,1)
-topoplot(ch_delta_pbo_second(:,subject),chanlocs(1:64));
-title("PBO min 4-8");
-hcb=colorbar;
-hcb.Title.String = "% change";
-subplot(1,2,2)
-topoplot(ch_delta_pbo_rec(:,subject),chanlocs(1:64));
-title("PBO recovery");
-hcb=colorbar;
-hcb.Title.String = "% change";
+hcb.Title.String = "Diff";

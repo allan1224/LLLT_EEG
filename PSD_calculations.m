@@ -30,18 +30,18 @@ end
 %% PLOT PSD  
 %% Average of subjects across a given channel 
 channel = 34;
-figure;
-plot(f1,10*log10(mean(pxx_tls_rec(channel,:,:),3)), 'color','r')
+figure; 
+plot(f1,10*log10(mean(pxx_tls_second(channel,:,newSubs_tls),3)), 'color','r')
 hold on;
-plot(f1,10*log10(mean(pxx_tls_base(channel,:,:),3)), 'color','b')
+plot(f1,10*log10(mean(pxx_tls_base(channel,:,newSubs_tls),3)), 'color','b')
 xlabel('Frequency (Hz)')
 ylabel('PSD (dB/Hz)')
 xlim([1 70])
-title("Grand Average PSD", labels{channel})
+title("Average of subjects PSD", labels{channel})
 legend('rec','baseline')
 %% For each subject for each channel
 channel = 34;
-subject = 1;
+subject = 2;
 figure;
 plot(f1,10*log10(pxx_tls_rec(channel,:,subject)), 'color','r')
 hold on;
@@ -66,16 +66,16 @@ nodB_nor_pxx_pbo_rec = 100*((pxx_pbo_rec./pxx_pbo_base)-1);
 %% Average of subjects across a given channel 
 channel = 34;
 figure;
-plot(f1,(mean(nodB_nor_pxx_tls_second(channel,:,:),3)), 'color','b')
+plot(f1,(mean(nodB_nor_pxx_tls_second(channel,:,newSubs_tls),3)), 'color','r')
 hold on;
-plot(f1,(mean(nodB_nor_pxx_pbo_second(channel,:,:),3)), 'color','r')
+plot(f1,(mean(nodB_nor_pxx_pbo_second(channel,:,newSubs_pbo),3)), 'color','b')
 xlabel('Frequency (Hz)')
 ylabel('% change')
 xlim([1 40])
-title("Grand Average Change in PSD", labels(channel))
+title("Average Change in PSD across subjects", labels(channel))
 legend('TLS min 4-8','PBO min 4-8')
 
-%% For each subject for reach channel - TLS
+%% For each subject for each channel - TLS
 channel = 34;
 subject = 5;
 figure;
@@ -97,7 +97,7 @@ title("Change in PSD PBO rec - subject " + subject, labels(channel))
 %% PSD Sub-bands
 % Calculate DWT beforehand
 
-for sub = 1:numSubjects_tls
+for sub = 1:newSubs_tls
     for chan = 1:numChannels
         
         % PSD alpha base
