@@ -173,42 +173,42 @@ legend('TLS','PBO')
 
 % alpha
 figure; 
-sgtitle("Delta value alpha power between TLS and PBO")
+sgtitle("alpha ∆mpower between TLS and PBO")
 subplot(1,2,1)
 topoplot(100*meanDiff_alpha_second,chanlocs(1:64));
 title("TLS min 4-8");
 hcb=colorbar;
-hcb.Title.String = "Diff";
+hcb.Title.String = "∆mpower";
 subplot(1,2,2)
 topoplot(100*meanDiff_alpha_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
-hcb.Title.String = "Diff";
+hcb.Title.String = "∆mpower";
 
 % beta
 figure; 
-sgtitle("Delta value beta power between TLS and PBO")
+sgtitle("beta ∆mpower between TLS and PBO")
 subplot(1,2,1)
 topoplot(100*meanDiff_beta_second,chanlocs(1:64));
 title("TLS min 4-8");
 hcb=colorbar;
-hcb.Title.String = "Diff";
+hcb.Title.String = "∆mpower";
 subplot(1,2,2)
 topoplot(100*meanDiff_beta_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
-hcb.Title.String = "Diff";
+hcb.Title.String = "∆mpower";
 
 % delta
 figure; 
-sgtitle("Delta value delta power between TLS and PBO")
+sgtitle("delta ∆mpower between TLS and PBO")
 subplot(1,2,1)
 topoplot(100*meanDiff_delta_second,chanlocs(1:64));
 title("TLS min 4-8");
 hcb=colorbar;
-hcb.Title.String = "Diff";
+hcb.Title.String = "∆mpower";
 subplot(1,2,2)
 topoplot(100*meanDiff_delta_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
-hcb.Title.String = "Diff";
+hcb.Title.String = "∆mpower";
