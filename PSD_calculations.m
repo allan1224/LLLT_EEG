@@ -95,7 +95,7 @@ xlim([1 40])
 title("Change in PSD PBO rec - subject " + subject, labels(channel))
 
 %% PSD Sub-bands
-% Calculate DWT beforehand
+% Must calculate DWT beforehand
 
 for sub = 1:newSubs_tls
     for chan = 1:numChannels

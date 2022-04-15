@@ -15,6 +15,10 @@ for sub = 1:numSubjects_tls
     deltaPow_tls_base(chan,sub) = bandpower(pxx_tls_base(chan,:,sub),f1,[0.5,4],'psd');
     deltaPow_tls_second(chan,sub) = bandpower(pxx_tls_second(chan,:,sub),f1,[0.5,4],'psd');
     deltaPow_tls_rec(chan,sub) = bandpower(pxx_tls_rec(chan,:,sub),f1,[0.5,4],'psd');
+    
+    gammaPow_tls_base(chan,sub) = bandpower(pxx_tls_base(chan,:,sub),f1,[30,75],'psd');
+    gammaPow_tls_second(chan,sub) = bandpower(pxx_tls_second(chan,:,sub),f1,[30,75],'psd');
+    gammaPow_tls_rec(chan,sub) = bandpower(pxx_tls_rec(chan,:,sub),f1,[30,75],'psd');
     end 
 end
 
@@ -31,6 +35,10 @@ for sub = 1:numSubjects_pbo
     deltaPow_pbo_base(chan,sub) = bandpower(pxx_pbo_base(chan,:,sub),f1,[0.5,4],'psd');
     deltaPow_pbo_second(chan,sub) = bandpower(pxx_pbo_second(chan,:,sub),f1,[0.5,4],'psd');
     deltaPow_pbo_rec(chan,sub) = bandpower(pxx_pbo_rec(chan,:,sub),f1,[0.5,4],'psd');
+    
+    gammaPow_pbo_base(chan,sub) = bandpower(pxx_pbo_base(chan,:,sub),f1,[30,75],'psd');
+    gammaPow_pbo_second(chan,sub) = bandpower(pxx_pbo_second(chan,:,sub),f1,[30,75],'psd');
+    gammaPow_pbo_rec(chan,sub) = bandpower(pxx_pbo_rec(chan,:,sub),f1,[30,75],'psd');
     end 
 end
 %% Filter subjects 
@@ -56,6 +64,14 @@ deltaPow_pbo_base = deltaPow_pbo_base(:,newSubs_pbo);
 deltaPow_pbo_second = deltaPow_pbo_second(:,newSubs_pbo);
 deltaPow_pbo_rec = deltaPow_pbo_rec(:,newSubs_pbo);
 
+
+gammaPow_tls_base = gammaPow_tls_base(:,newSubs_tls);
+gammaPow_tls_second = gammaPow_tls_second(:,newSubs_tls);
+gammaPow_tls_rec = gammaPow_tls_rec(:,newSubs_tls);
+gammaPow_pbo_base = gammaPow_pbo_base(:,newSubs_pbo);
+gammaPow_pbo_second = gammaPow_pbo_second(:,newSubs_pbo);
+gammaPow_pbo_rec = gammaPow_pbo_rec(:,newSubs_pbo);
+
 %% Ratio of average band power between stimulation/recovery and baseline
 % Xinlong recommends to use this normalization for further statistical
 % analysis
@@ -67,6 +83,8 @@ r_beta_tls_second = betaPow_tls_second./betaPow_tls_base;
 r_beta_tls_rec = betaPow_tls_rec./betaPow_tls_base;
 r_delta_tls_second = deltaPow_tls_second./deltaPow_tls_base;
 r_delta_tls_rec = deltaPow_tls_rec./deltaPow_tls_base;
+r_gamma_tls_second = gammaPow_tls_second./gammaPow_tls_base;
+r_gamma_tls_rec = gammaPow_tls_rec./gammaPow_tls_base;
 
 r_alpha_pbo_second = alphaPow_pbo_second./alphaPow_pbo_base;
 r_alpha_pbo_rec = alphaPow_pbo_rec./alphaPow_pbo_base;
@@ -74,6 +92,8 @@ r_beta_pbo_second = betaPow_pbo_second./betaPow_pbo_base;
 r_beta_pbo_rec = betaPow_pbo_rec./betaPow_pbo_base;
 r_delta_pbo_second = deltaPow_pbo_second./deltaPow_pbo_base;
 r_delta_pbo_rec = deltaPow_pbo_rec./deltaPow_pbo_base;
+r_gamma_pbo_second = gammaPow_pbo_second./gammaPow_pbo_base;
+r_gamma_pbo_rec = gammaPow_pbo_rec./gammaPow_pbo_base;
 
 % Mean difference between TLS and PBO
 % For topoplots
@@ -86,6 +106,8 @@ meanDiff_beta_rec = mean(r_beta_tls_rec,2)-mean(r_beta_pbo_rec,2);
 meanDiff_delta_second = mean(r_delta_tls_second,2)-mean(r_delta_pbo_second,2);
 meanDiff_delta_rec = mean(r_delta_tls_rec,2)-mean(r_delta_pbo_rec,2);
 
+meanDiff_gamma_second = mean(r_gamma_tls_second,2)-mean(r_gamma_pbo_second,2);
+meanDiff_gamma_rec = mean(r_gamma_tls_rec,2)-mean(r_gamma_pbo_rec,2);
 %% Plot the bandpower ratio to baseline
 %% TLS 4-8
 
@@ -209,6 +231,20 @@ hcb=colorbar;
 hcb.Title.String = "∆mpower";
 subplot(1,2,2)
 topoplot(100*meanDiff_delta_rec,chanlocs(1:64));
+title("recovery");
+hcb=colorbar;
+hcb.Title.String = "∆mpower";
+
+% gamma
+figure; 
+sgtitle("gamma ∆mpower between TLS and PBO")
+subplot(1,2,1)
+topoplot(100*meanDiff_gamma_second,chanlocs(1:64));
+title("TLS min 4-8");
+hcb=colorbar;
+hcb.Title.String = "∆mpower";
+subplot(1,2,2)
+topoplot(100*meanDiff_gamma_rec,chanlocs(1:64));
 title("recovery");
 hcb=colorbar;
 hcb.Title.String = "∆mpower";
